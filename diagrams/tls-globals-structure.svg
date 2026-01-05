@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="600" height="480" xmlns="http://www.w3.org/2000/svg">
+  <!-- Definitions -->
+  <defs>
+    <style>
+      .main-title { font-family: Arial, sans-serif; font-size: 11px; font-weight: bold; fill: #222; }
+      .section-title { font-family: Arial, sans-serif; font-size: 8px; font-weight: bold; fill: #333; }
+      .item-text { font-family: 'Courier New', monospace; font-size: 6.5px; fill: #333; }
+      .footer-text { font-family: Arial, sans-serif; font-size: 7px; font-weight: bold; fill: #555; text-anchor: middle; }
+    </style>
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="1.5"/>
+      <feOffset dx="1" dy="1" result="offsetblur"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.3"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Outer Thread-Local Storage border -->
+  <rect x="2.5" y="2.5" width="455" height="475" rx="6" fill="#FFFFFF" stroke="#666" stroke-width="1.5" stroke-dasharray="5,2.5"/>
+
+  <!-- Title background -->
+  <rect x="160" y="5" width="140" height="17.5" rx="2.5" fill="#FFFFFF" stroke="none"/>
+  <text x="230" y="16.5" class="main-title" text-anchor="middle">Thread-Local Storage</text>
+
+  <!-- Main container -->
+  <rect x="10" y="25" width="440" height="440" rx="5" fill="#FAFAFA" stroke="#999" stroke-width="1" filter="url(#shadow)"/>
+
+  <!-- Section 1: ZEND ENGINE -->
+  <rect x="20" y="35" width="420" height="100" rx="4" fill="#FFF3E0" stroke="#FF9800" stroke-width="1" filter="url(#shadow)"/>
+  <text x="230" y="47.5" class="section-title" text-anchor="middle">1. ZEND ENGINE (Core)</text>
+
+  <text x="30" y="62.5" class="item-text">EG  - executor_globals      (~2KB, 60+ fields)</text>
+  <text x="30" y="77.5" class="item-text">CG  - compiler_globals      (~1.5KB, 40+ fields)</text>
+  <text x="30" y="92.5" class="item-text">LANG_SCNG - php_scanner     (~500B, 25+ fields)</text>
+  <text x="30" y="107.5" class="item-text">INI_SCNG  - ini_scanner     (~200B, 12 fields)</text>
+
+  <!-- Section 2: MEMORY MANAGEMENT -->
+  <rect x="20" y="145" width="420" height="85" rx="4" fill="#E8F5E9" stroke="#4CAF50" stroke-width="1" filter="url(#shadow)"/>
+  <text x="230" y="157.5" class="section-title" text-anchor="middle">2. MEMORY MANAGEMENT</text>
+
+  <text x="30" y="172.5" class="item-text">AG     - alloc_globals      (8B, 1 field)</text>
+  <text x="30" y="187.5" class="item-text">GC_G   - gc_globals         (~200B, 20+ fields)</text>
+  <text x="30" y="202.5" class="item-text">VCWD_G - virtual_cwd        (varies)</text>
+
+  <!-- Section 3: PHP CORE & SAPI -->
+  <rect x="20" y="240" width="420" height="70" rx="4" fill="#E3F2FD" stroke="#2196F3" stroke-width="1" filter="url(#shadow)"/>
+  <text x="230" y="252.5" class="section-title" text-anchor="middle">3. PHP CORE &amp; SAPI</text>
+
+  <text x="30" y="267.5" class="item-text">PG - core_globals           (~1KB, 60+ fields)</text>
+  <text x="30" y="282.5" class="item-text">SG - sapi_globals           (~500B, 15+ fields)</text>
+
+  <!-- Section 4: EXTENSIONS -->
+  <rect x="20" y="320" width="420" height="85" rx="4" fill="#F3E5F5" stroke="#9C27B0" stroke-width="1" filter="url(#shadow)"/>
+  <text x="230" y="332.5" class="section-title" text-anchor="middle">4. EXTENSIONS (Per-module)</text>
+
+  <text x="30" y="347.5" class="item-text">BG        - basic_globals   (ext/standard)</text>
+  <text x="30" y="362.5" class="item-text">FG        - file_globals    (ext/standard)</text>
+  <text x="30" y="377.5" class="item-text">ZCSG      - accel_globals   (ext/opcache)</text>
+  <text x="30" y="392.5" class="item-text">... 50+ other extensions ...</text>
+
+  <!-- Footer -->
+  <text x="230" y="425" class="footer-text">TOTAL: ~6-8KB base structures + extensions</text>
+  <text x="230" y="437.5" class="footer-text" style="font-size: 6px; font-weight: normal;">Allocated automatically via ts_resource(0)</text>
+</svg>

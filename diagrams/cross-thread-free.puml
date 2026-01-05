@@ -1,0 +1,33 @@
+@startuml
+!theme mars
+
+participant "Thread B (sender)" as B
+participant "SPSC Queue" as Q
+participant "Thread A (owner)" as A
+participant "Memory Manager A" as MM
+
+B -> B: efree($obj)
+B -> B: detect: owner is Thread A
+
+B -> Q: push(Object ptr)
+note right: Lock-free operation\n(0 CAS on fast path)
+
+Q -> Q: store message
+
+... Thread A continues execution ...
+
+A -> A: periodic check
+A -> Q: collect remote frees
+Q -> A: pop messages (batch)
+
+loop for each message
+    A -> MM: free(ptr) in owner context
+    MM -> MM: return to free list
+end
+
+note over A,MM
+  Memory safely freed
+  in owner's context
+end note
+
+@enduml

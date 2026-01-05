@@ -1,0 +1,22 @@
+@startuml
+!theme vibrant
+
+skinparam {
+    roundCorner 15
+    shadowing true
+}
+
+rectangle "**PHP VM State**" as vm #FFF3E0 {
+    rectangle "Executor Globals (EG)"
+    rectangle "Compiler Globals (CG)"
+}
+
+rectangle "**Code**" as code #E3F2FD
+rectangle "**Data**" as data #E8F5E9
+rectangle "**Memory Manager**" as mm #FFE0E0
+
+vm -down-> code
+vm -down-> data
+mm -down-> data
+
+@enduml

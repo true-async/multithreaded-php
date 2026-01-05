@@ -1,0 +1,32 @@
+@startuml actor-message-flow
+!theme mars
+
+participant "Main Thread" as Main
+queue "Message Queue" as Queue
+participant "Actor Thread" as Actor
+
+Main -> Queue: $room->post()
+note right of Main
+  Main thread blocks
+  and waits for result
+end note
+
+Queue -> Actor: Deliver message
+activate Actor
+
+Actor -> Actor: post() executes
+note right of Actor
+  Processing message
+  in actor thread
+end note
+
+Actor -> Queue: Return value
+deactivate Actor
+
+Queue -> Main: Result ready
+note left of Main
+  $result = ...
+  Unblocked
+end note
+
+@enduml

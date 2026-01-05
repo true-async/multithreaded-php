@@ -1,0 +1,40 @@
+@startuml chat-sequence
+!theme mars
+
+actor "User" as User
+
+box "Coroutine Context" #LightBlue
+    box "Request Thread" #E0D4F7
+        participant "Request Coroutine" as Coroutine
+    end box
+end box
+
+box "Thread Pool" #LightYellow
+    queue "Task Queue" as Queue
+    participant "Worker Thread" as Worker
+end box
+
+User -> Coroutine: Upload image
+
+Coroutine -> Queue: Enqueue task and await result
+note right: Coroutine suspends,\nwaits for result
+
+Queue -> Worker: Dequeue task
+activate Worker
+Worker -> Worker: CPU-intensive processing
+Worker -> Queue: Return result
+deactivate Worker
+
+Queue -> Coroutine: Return result
+
+note right: Coroutine resumes
+
+Coroutine -> User: Send Result
+
+note over Coroutine, Worker
+  Request thread runs event loop with coroutines.
+  Each request handled in a coroutine that awaits
+  Thread Pool results without blocking the event loop.
+end note
+
+@enduml
