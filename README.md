@@ -7,6 +7,12 @@ An experimental space to explore future directions for multithreading in PHP, in
 ## Articles
 - English: [Multithreading in PHP: Looking to the Future](mm-en.md)
 - Russian: [Многопоточность в PHP: взгляд в будущее](mm-ru.md)
+- Chinese: [PHP 的多线程：面向未来的视角](mm-zh.md)
+- Spanish: [Multithreading en PHP: una mirada al futuro](mm-es.md)
+- Italian: [Multithreading in PHP: uno sguardo al futuro](mm-it.md)
+- German: [Multithreading in PHP: Blick in die Zukunft](mm-de.md)
+- French: [Multithreading en PHP : regard vers l’avenir](mm-fr.md)
+- Ukrainian: [Мультипотоковість у PHP: погляд у майбутнє](mm-uk.md)
 
 ## What you will find
 - Narrative articles describing potential PHP core changes for safe multithreading
